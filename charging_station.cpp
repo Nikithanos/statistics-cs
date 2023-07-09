@@ -1,14 +1,14 @@
 #include "charging_station.h"
 
 
-	const unsigned int ChargingStation::GetStationNumber() const
+	const unsigned short ChargingStation::GetStationNumber() const
 	{
 		return number_;
 	}
 
-	const std::string ChargingStation::GetStationAdress() const
+	const std::string ChargingStation::GetStationAddress() const
 	{
-		return adress_;
+		return address_;
 	}
 
 	const Coordinates ChargingStation::GetCoordinates() const
@@ -38,21 +38,21 @@
 		}
 	}
 
-	const CharginStationPlace ChargingStation::GetLocation() const
+	const ChargingStationPlace ChargingStation::GetLocation() const
 	{
 		return place_;
 	}
 
-	void ChargingStation::SetStationNumber(unsigned int new_number)
+	void ChargingStation::SetStationNumber(unsigned short new_number)
 	{
 		
 			(new_number > 0) ? number_ = new_number : throw std::logic_error("Station's number can not be negative!");
 		
 	}
 
-	void ChargingStation::SetStationAdress(std::string_view new_adress)
+	void ChargingStation::SetStationAddress(std::string_view new_address)
 	{
-		adress_ = new_adress;
+		address_ = new_address;
 	}
 
 	void ChargingStation::SetCoordinates(double latitude, double longtitude)
@@ -80,8 +80,17 @@
 	}
 
 	std::ostream& operator<<(std::ostream& out, const ChargingStation& station) {
-		out << "Station number: "s << station.GetStationNumber() << ", adress: "s << station.GetStationAdress() << ", coordinates: latitude - "s << station.GetCoordinates().latitude
+		out << "Station number: "s << station.GetStationNumber() << ", adress: "s << station.GetStationAddress() << ", coordinates: latitude - "s << station.GetCoordinates().latitude
 			<< ", longtitude - "s << station.GetCoordinates().longtitude << ", producer: "s << station.GetProducer() << ", project:"s << station.GetProject() << ", "s << station.GetLocation() << std::endl;
 		return out;
+	}
+
+	bool operator==(const ChargingStation& left, const ChargingStation& right)
+	{
+		return (left.GetStationNumber() == right.GetStationNumber() && left.GetStationAddress() == right.GetStationAddress() && left.GetProject() == right.GetProject() && left.GetProducer() == right.GetProducer() && left.GetLocation() == right.GetLocation() && left.GetCoordinates() == right.GetCoordinates()) ? true : false;
+	}
+
+	bool operator<(const ChargingStation& left, const ChargingStation& right) {
+		return (left.GetStationNumber() < right.GetStationNumber()) ? true : false;
 	}
 

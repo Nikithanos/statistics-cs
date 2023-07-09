@@ -1,7 +1,7 @@
 #include "location.h"
 
 
-const std::string CharginStationPlace::GetLocation() const {
+const std::string ChargingStationPlace::GetLocation() const {
 	switch (location_) {
 	case (Location::Lukoil):
 		return "Lukoil"s;
@@ -23,7 +23,7 @@ const std::string CharginStationPlace::GetLocation() const {
 	}
 }
 
-void CharginStationPlace::SetLocation(std::string location) {
+void ChargingStationPlace::SetLocation(std::string location) {
 	if ((location == "Lukoil"s) || (location == "lukoil"s)) {
 		location_ = Location::Lukoil;
 	}
@@ -44,24 +44,28 @@ void CharginStationPlace::SetLocation(std::string location) {
 	}
 }
 
-void CharginStationPlace::SetLocationNumber(std::string location_number) {
+void ChargingStationPlace::SetLocationNumber(std::string location_number) {
 	location_number_ = location_number;
 }
 
-void CharginStationPlace::SetContacts(std::string name, std::string number) {
+void ChargingStationPlace::SetContacts(std::string name, std::string number) {
 	contacts_ = std::make_pair( name, number );
 }
 
 
-const std::string CharginStationPlace::GetLocationNumber() const {
+const std::string ChargingStationPlace::GetLocationNumber() const {
 	return location_number_;
 }
 
-const std::pair<std::string, std::string> CharginStationPlace::GetContacts() const {
+const std::pair<std::string, std::string> ChargingStationPlace::GetContacts() const {
 	return contacts_;
 }
 
-std::ostream& operator<<(std::ostream& out, const CharginStationPlace& place) {
+std::ostream& operator<<(std::ostream& out, const ChargingStationPlace& place) {
 	out << "Where: "s << place.GetLocation(); // ", station number:" << place.GetLocationNumber() << ", contacts: " << place.GetContacts();
 	return out;
+}
+
+bool operator==(const ChargingStationPlace& left, const ChargingStationPlace& right) {
+	return (left.GetLocationNumber() == right.GetLocationNumber() && left.GetLocation() == right.GetLocation()) ? true : false;
 }
