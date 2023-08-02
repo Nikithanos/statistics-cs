@@ -14,6 +14,7 @@
 	const Coordinates ChargingStation::GetCoordinates() const
 	{
 		return coordinates_;
+		coordinates_;
 	}
 
 	const std::string ChargingStation::GetProducer() const
